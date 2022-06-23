@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: '[name]-[fullhash].js',
-    publicPath: './',
+    publicPath: '/',
     clean: true,
   },
   module: {
@@ -51,16 +51,17 @@ module.exports = {
     })
   ],
 
-  // devtool: 'source-map',
-  // resolve: {
-  //   extensions: ['.js', '.scss']
-  // },
+  devtool: 'source-map',
+  resolve: {
+    extensions: ['.js', '.scss']
+  },
 
   devServer: {
     static: {
       directory: path.join(__dirname, 'src'),
     },
     compress: true,
-    port: 9000,
+    hot: true,
+    port: 9001,
   },
 };

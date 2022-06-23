@@ -2,16 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-
 module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: '[name][fullhash].js',
-    clean: true,
+    filename: '[name]-[fullhash].js',
     publicPath: './',
+    clean: true,
   },
-
   module: {
     rules: [
       {
@@ -29,19 +27,18 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           MiniCssExtractPlugin.loader,
-          {
-            loader: "css-loader",
-            options: { sourceMap: true },
-          },
-          {
-            loader: "sass-loader",
-            options: { sourceMap: true },
-          }
+          "css-loader",
+          "sass-loader",
+          "postcss-loader"
         ],
       },
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader"
+        ],
       },
     ]
   },
@@ -50,18 +47,16 @@ module.exports = {
       template: './src/index.html'
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css'
-    }),
-
+      filename: '[name]-[fullhash].css'
+    })
   ],
 
+  // devtool: 'source-map',
+  // resolve: {
+  //   extensions: ['.js', '.scss']
+  // },
+
   devServer: {
-    watchFiles: {
-      paths: ['src/**/*.php', 'src/**/*'],
-      options: {
-        usePolling: false,
-      },
-    },
     static: {
       directory: path.join(__dirname, 'src'),
     },

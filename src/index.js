@@ -1,1 +1,2 @@
-const labels = document.querySelectorAll("label");
+import './index.scss';
+import './index.css';
